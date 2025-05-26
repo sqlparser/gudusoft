@@ -1,0 +1,62 @@
+name: General SQL Parser Build CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["release/release"]
+  pull_request:
+    branches: ["release/release"]
+
+permissions:
+  contents: write
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout public repo
+      uses: actions/checkout@v3
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '8'
+        distribution: 'adopt'
+
+    - uses: actions/checkout@v3
+      with:
+        repository: sqlparser/gsp_java
+        token: ${{ secrets.GSP_CORE_REPO_ACCESS_TOKEN }}
+        path: gsp_java
+        ref: dev
+
+    - name: Prepare settings.xml
+      run: |
+        cat <<EOF > settings.xml
+        <settings>
+          <servers>
+            <server>
+              <id>github</id>
+              <username>${{ github.actor }}</username>
+              <password>${{ secrets.GITHUB_TOKEN }}</password>
+            </server>
+          </servers>
+        </settings>
+        EOF
+
+    - name: Run SQLFlow modification script
+      run: |
+        cd gsp_java/gsp_java_core
+        chmod +x modify_lzbasetype.sh
+        ./modify_lzbasetype.sh
+
+    - name: Build JAR
+      run: |
+        cd gsp_java/gsp_java_core
+        mvn package -Dmaven.test.skip=true -P customer.alldbs,github_package
+
+    - name: Deploy to GitHub Packages
+      run: |
+        cd gsp_java/gsp_java_core
+        mvn deploy -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip=true -P customer.alldbs,github_package
