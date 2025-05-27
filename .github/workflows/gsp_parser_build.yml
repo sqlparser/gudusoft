@@ -51,10 +51,8 @@ jobs:
         chmod +x gsp_java_core/modify_lzbasetype.sh
         sh gsp_java_core/modify_lzbasetype.sh
 
-    - name: Install parent POM locally
-      run: |
-        cd gsp_java
-        mvn clean install -Dmaven.test.skip=true -P customer.alldbs,quick_install
+    - name: Remove parent section from gsp_java_core pom.xml
+      run: sed -i '/<parent>/,/<\/parent>/d' gsp_java/gsp_java_core/pom.xml
 
     - name: Deploy to GitHub Packages
       run: |
