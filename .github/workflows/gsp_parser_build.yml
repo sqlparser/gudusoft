@@ -27,7 +27,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         repository: sqlparser/gsp_java
-        token: ${{ secrets.GSP_CORE_REPO_ACCESS_TOKEN }}
+        token: ${{ secrets.GSP_CORE_TOKEN }}
         path: gsp_java
         ref: dev
 
