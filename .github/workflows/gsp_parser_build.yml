@@ -49,7 +49,10 @@ jobs:
       run: |
         cd gsp_java/gsp_java_core
         chmod +x modify_lzbasetype.sh
-        ./modify_lzbasetype.sh
+
+    - name: Run modify_sqlflow.sh inside gsp_java directory
+      working-directory: gsp_java
+      run: ./modify_sqlflow.sh
 
     - name: Build JAR
       run: |
