@@ -64,4 +64,4 @@ jobs:
         mvn deploy -X -s $GITHUB_WORKSPACE/settings.xml \
           -Dmaven.test.skip=true \
           -P customer.alldbs,github_package \
-          -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/gudusoft/public-release
+          -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/sqlparser/gudusoft
