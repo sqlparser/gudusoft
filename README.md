@@ -16,7 +16,7 @@ To use this package in your **Maven** project, add the following to your `pom.xm
 <dependency>
   <groupId>gudusoft</groupId>
   <artifactId>gsqlparser</artifactId>
-  <version>3.0.8.9.2</version>
+  <version></version>
 </dependency>
 ```
 
