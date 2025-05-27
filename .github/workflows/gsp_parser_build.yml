@@ -35,6 +35,7 @@ jobs:
       run: |
         cat <<EOF > settings.xml
         <settings>
+          <servers>
             <server>
               <id>github</id>
               <username>${{ secrets.GITHUB_ACTOR }}</username>
