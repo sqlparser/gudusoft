@@ -69,7 +69,7 @@ jobs:
     - name: Extract version from built jar filename
       id: extract_version
       run: |
-        FILE=$(ls gsp_java/gsp_java_core/target/gsqlparser-*.jar | head -n1)
+        FILE=$(ls gsp_java/gsp_java_core/target/gsqlparser-*.jar | grep -vE 'javadoc|sources' | head -n1)
         echo "Found file: $FILE"
         VERSION=$(basename "$FILE" .jar)
         VERSION=${VERSION#gsqlparser-}
