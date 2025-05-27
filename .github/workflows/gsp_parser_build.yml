@@ -52,7 +52,9 @@ jobs:
         sh gsp_java_core/modify_lzbasetype.sh
 
     - name: Remove parent section from gsp_java_core pom.xml
-      run: sed -i '/<parent>/,/<\/parent>/d' gsp_java/gsp_java_core/pom.xml
+      run: |
+        cd gsp_java/gsp_java_core
+        sed -i '/<parent>/,/<\/parent>/d' pom.xml
 
     - name: Deploy to GitHub Packages
       run: |
