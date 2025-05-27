@@ -61,7 +61,7 @@ jobs:
     - name: Deploy to GitHub Packages
       run: |
         cd gsp_java/gsp_java_core
-        mvn deploy -X -s $GITHUB_WORKSPACE/settings.xml \
+        mvn deploy -s $GITHUB_WORKSPACE/settings.xml \
           -Dmaven.test.skip=true \
           -P customer.alldbs,github_package \
           -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/sqlparser/gudusoft
