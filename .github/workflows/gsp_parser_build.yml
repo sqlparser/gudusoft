@@ -54,10 +54,10 @@ jobs:
         chmod +x gsp_java_core/modify_lzbasetype.sh
         sh gsp_java_core/modify_lzbasetype.sh
 
-    - name: Build JAR
-      run: |
-        cd gsp_java/gsp_java_core
-        mvn package -Dmaven.test.skip=true -P customer.alldbs,github_package
+#    - name: Build JAR
+#      run: |
+#        cd gsp_java/gsp_java_core
+#        mvn package -Dmaven.test.skip=true -P customer.alldbs,github_package
 
     - name: Deploy to GitHub Packages
       run: |
