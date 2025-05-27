@@ -58,6 +58,12 @@ jobs:
         echo "After sed, first 20 lines of pom.xml:"
         head -n 20 pom.xml
 
+    - name: Extract version from pom.xml
+      id: extract_version
+      run: |
+        VERSION=$(xmllint --xpath "/*[local-name()='project']/*[local-name()='version']/text()" gsp_java/gsp_java_core/pom.xml)
+        echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
+
     - name: Deploy to GitHub Packages
       run: |
         cd gsp_java/gsp_java_core
@@ -74,13 +80,13 @@ jobs:
 
     - name: Update README.md version
       run: |
-        sed -i "s/<version>.*<\/version>/<version>${RELEASE_VERSION}<\/version>/g" README.md
-        sed -i "s/version=[0-9.]\\+/${RELEASE_VERSION}/g" README.md || true
+        sed -i "s/<version>.*<\/version>/<version>${{ env.RELEASE_VERSION }}<\/version>/g" README.md
+        sed -i "s/version=[0-9.]\\+/${{ env.RELEASE_VERSION }}/g" README.md || true
 
     - name: Commit and push README update
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
         git add README.md
-        git commit -m "chore: update README.md version to ${RELEASE_VERSION}" || echo "No changes"
+        git commit -m "chore: update README.md version to ${{ env.RELEASE_VERSION }}" || echo "No changes"
         git push origin main
