@@ -47,12 +47,9 @@ jobs:
 
     - name: Run SQLFlow modification script
       run: |
-        cd gsp_java/gsp_java_core
-        chmod +x modify_lzbasetype.sh
-
-    - name: Run modify_sqlflow.sh inside gsp_java directory
-      working-directory: gsp_java
-      run: ./modify_sqlflow.sh
+        cd gsp_java
+        chmod +x gsp_java_core/modify_lzbasetype.sh
+        sh gsp_java_core/modify_lzbasetype.sh
 
     - name: Build JAR
       run: |
