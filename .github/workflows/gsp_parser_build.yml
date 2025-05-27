@@ -55,6 +55,8 @@ jobs:
       run: |
         cd gsp_java/gsp_java_core
         sed -i '/<parent>/,/<\/parent>/d' pom.xml
+        echo "After sed, first 20 lines of pom.xml:"
+        head -n 20 pom.xml
 
     - name: Deploy to GitHub Packages
       run: |
