@@ -38,8 +38,8 @@ jobs:
           <servers>
             <server>
               <id>github</id>
-              <username>${{ secrets.GITHUB_ACTOR }}</username>
-              <password>${{ secrets.GITHUB_TOKEN }}</password>
+              <username>sqlparser</username>
+              <password>${{ secrets.GSP_CORE_REPO_ACCESS_TOKEN }}</password>
             </server>
           </servers>
         </settings>
