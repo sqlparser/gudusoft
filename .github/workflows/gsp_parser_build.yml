@@ -38,7 +38,7 @@ jobs:
           <servers>
             <server>
               <id>github</id>
-              <username>sqlparser</username>
+              <username>cnfree</username>
               <password>${{ secrets.GSP_CORE_REPO_ACCESS_TOKEN }}</password>
             </server>
           </servers>
@@ -61,4 +61,4 @@ jobs:
     - name: Deploy to GitHub Packages
       run: |
         cd gsp_java/gsp_java_core
-        mvn deploy -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip=true -P customer.alldbs,github_package
+        mvn deploy -X -s $GITHUB_WORKSPACE/settings.xml -Dmaven.test.skip=true -P customer.alldbs,github_package
