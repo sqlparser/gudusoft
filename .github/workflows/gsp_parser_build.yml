@@ -58,12 +58,6 @@ jobs:
         echo "After sed, first 20 lines of pom.xml:"
         head -n 20 pom.xml
 
-    - name: Extract version from pom.xml
-      id: extract_version
-      run: |
-        VERSION=$(xmllint --xpath "/*[local-name()='project']/*[local-name()='version']/text()" gsp_java/gsp_java_core/pom.xml)
-        echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
-
     - name: Deploy to GitHub Packages
       run: |
         cd gsp_java/gsp_java_core
@@ -71,6 +65,16 @@ jobs:
           -Dmaven.test.skip=true \
           -P customer.alldbs,github_package \
           -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/sqlparser/gudusoft
+
+    - name: Extract version from built jar filename
+      id: extract_version
+      run: |
+        FILE=$(ls gsp_java/gsp_java_core/target/gsqlparser-*.jar | head -n1)
+        echo "Found file: $FILE"
+        VERSION=$(basename "$FILE" .jar)
+        VERSION=${VERSION#gsqlparser-}
+        echo "Extracted version: $VERSION"
+        echo "RELEASE_VERSION=$VERSION" >> $GITHUB_ENV
 
     - name: Checkout main branch
       uses: actions/checkout@v4
