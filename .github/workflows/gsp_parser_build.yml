@@ -29,7 +29,7 @@ jobs:
         repository: sqlparser/gsp_java
         token: ${{ secrets.GSP_CORE_REPO_ACCESS_TOKEN }}  # 👈 secret 名是这个
         path: gsp_java
-        ref: main
+        ref: release/trial
 
     - name: Set up Maven settings.xml
       run: |
